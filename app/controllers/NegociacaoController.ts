@@ -1,3 +1,4 @@
+import tempoDeExecucao from "../decorators/tempoDeExecucao.js"
 import { DiasDaSemana } from "../enums/DiasDaSemana.js"
 import Negociacao from "../models/Negociacao.js"
 import Negociacoes from "../models/Negociacoes.js"
@@ -19,6 +20,7 @@ export default class NegociacaoController {
         this.negociacoes = new Negociacoes()
     }
 
+    @tempoDeExecucao()
     public adiciona(): void{
         const negociacao = this.criaNegociacao()
         

@@ -1,3 +1,5 @@
+import tempoDeExecucao from "../decorators/tempoDeExecucao.js"
+
 export default abstract class View<Type> {
     protected elemento: HTMLElement
     private escapar: boolean = false
@@ -10,6 +12,7 @@ export default abstract class View<Type> {
     }
     protected abstract template(model: Type): string
     
+    @tempoDeExecucao()
     update(model: Type): void{
         const template = this.template(model)
         this.elemento.innerHTML = template
