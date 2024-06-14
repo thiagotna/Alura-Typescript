@@ -4,7 +4,7 @@ export default abstract class View<Type> {
     constructor(selector: string){
         this.elemento = document.querySelector(selector) as HTMLElement
     }
-    abstract template(model: Type): string
+    protected abstract template(model: Type): string
     
     update(model: Type): void{
         const template = this.template(model)
