@@ -1,7 +1,12 @@
 import NegociacaoController from "./controllers/NegociacaoController.js";
 const contoller = new NegociacaoController();
 const form = document.querySelector('form');
-form === null || form === void 0 ? void 0 : form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    contoller.adiciona();
-});
+if (form) {
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        contoller.adiciona();
+    });
+}
+else {
+    throw new Error('Aplicação não pode ser iniciado. Verifique se há um formnulário no DOM');
+}
