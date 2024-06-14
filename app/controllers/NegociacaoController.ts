@@ -9,8 +9,8 @@ export default class NegociacaoController {
     private inputQuantidade: HTMLInputElement
     private inputValor: HTMLInputElement
     private negociacoes: Negociacoes
-    private negociacoesView: NegociacoesView = new NegociacoesView('#negociacoes-view')
-    private mensagemView: MensagemView = new MensagemView('#mensagem-view')
+    private negociacoesView: NegociacoesView = new NegociacoesView('#negociacoes-view', true)
+    private mensagemView: MensagemView = new MensagemView('#mensagem-view', false)
 
     constructor() {
         this.inputData = document.getElementById('data') as HTMLInputElement
@@ -33,12 +33,11 @@ export default class NegociacaoController {
     }
 
     private criaNegociacao(): Negociacao{
-        const regex = /-/g
-        const data = new Date(this.inputData.value.replace(regex, ','))
-        const quantidade = parseInt(this.inputQuantidade.value)
-        const valor = parseFloat(this.inputValor.value)
-        const negociacao = new Negociacao(data, quantidade, valor)
-        
+        const negociacao = Negociacao.criaDe(
+            this.inputData.value,
+            this.inputQuantidade.value,
+            this.inputValor.value
+        )
         return negociacao
     }
     private limparFormulario():void {
