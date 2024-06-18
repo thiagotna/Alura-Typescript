@@ -20,7 +20,6 @@ export default class NegociacaoController {
         this.negociacoes = new Negociacoes()
     }
 
-    @tempoDeExecucao()
     public adiciona(): void{
         const negociacao = this.criaNegociacao()
         

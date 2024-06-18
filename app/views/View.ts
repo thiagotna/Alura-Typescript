@@ -1,3 +1,4 @@
+import { inspect } from "../decorators/Inspect.js"
 import tempoDeExecucao from "../decorators/tempoDeExecucao.js"
 
 export default abstract class View<Type> {
@@ -12,7 +13,8 @@ export default abstract class View<Type> {
     }
     protected abstract template(model: Type): string
     
-    @tempoDeExecucao()
+    @tempoDeExecucao(true)
+    @inspect
     update(model: Type): void{
         const template = this.template(model)
         this.elemento.innerHTML = template

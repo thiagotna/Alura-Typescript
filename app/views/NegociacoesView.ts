@@ -2,9 +2,11 @@ import { extend } from "jquery"
 import Negociacao from "../models/Negociacao"
 import Negociacoes from "../models/Negociacoes.js"
 import View from "./View.js"
+import { escape } from "../decorators/escape.js"
 
 export default class NegociacoesView extends View<Negociacoes> {
    
+    @escape
     protected template(model: Negociacoes): string{
         return `
         <table class="table table-hover table-bordered">
