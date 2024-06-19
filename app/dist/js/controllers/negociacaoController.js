@@ -10,11 +10,13 @@ import Negociacao from "../models/Negociacao.js";
 import Negociacoes from "../models/Negociacoes.js";
 import MensagemView from "../views/MensagensView.js";
 import NegociacoesView from "../views/NegociacoesView.js";
+import { NegociacoesServices } from "../services/NegociacoesService.js";
 export default class NegociacaoController {
     constructor() {
         this.negociacoes = new Negociacoes();
         this.negociacoesView = new NegociacoesView('#negociacoes-view', true);
         this.mensagemView = new MensagemView('#mensagem-view', false);
+        this.negociacaoService = new NegociacoesServices;
         this.negociacoesView.update(this.negociacoes);
     }
     adiciona() {
@@ -26,6 +28,15 @@ export default class NegociacaoController {
         this.negociacoes.adiciona(negociacao);
         this.limparFormulario();
         this.atualizaView();
+    }
+    importarDados() {
+        this.negociacaoService.obterNegociacoesDoDia()
+            .then(negociacoesDeHoje => {
+            for (let negociacao of negociacoesDeHoje) {
+                this.negociacoes.adiciona(negociacao);
+            }
+            this.negociacoesView.update(this.negociacoes);
+        });
     }
     criaNegociacao() {
         const negociacao = Negociacao.criaDe(this.inputData.value, this.inputQuantidade.value, this.inputValor.value);

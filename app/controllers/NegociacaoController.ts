@@ -1,10 +1,13 @@
 
+import { data } from "jquery"
 import { domInjector } from "../decorators/domInjector.js"
 import { DiasDaSemana } from "../enums/DiasDaSemana.js"
 import Negociacao from "../models/Negociacao.js"
 import Negociacoes from "../models/Negociacoes.js"
 import MensagemView from "../views/MensagensView.js"
 import NegociacoesView from "../views/NegociacoesView.js"
+import { NegociacoesDoDia } from "../interfaces/NegociacoesDoDia.js"
+import { NegociacoesServices } from "../services/NegociacoesService.js"
 
 export default class NegociacaoController {
     @domInjector('#data')
@@ -16,6 +19,7 @@ export default class NegociacaoController {
     private negociacoes: Negociacoes = new Negociacoes()
     private negociacoesView: NegociacoesView = new NegociacoesView('#negociacoes-view', true)
     private mensagemView: MensagemView = new MensagemView('#mensagem-view', false)
+    private negociacaoService: NegociacoesServices = new NegociacoesServices
 
     constructor() {
         this.negociacoesView.update(this.negociacoes)
@@ -32,6 +36,16 @@ export default class NegociacaoController {
         this.negociacoes.adiciona(negociacao)
         this.limparFormulario()
         this.atualizaView()
+    }
+
+    public importarDados(): void {
+        this.negociacaoService.obterNegociacoesDoDia()        
+        .then( negociacoesDeHoje => {
+            for( let negociacao of negociacoesDeHoje){
+                this.negociacoes.adiciona( negociacao )
+            }
+            this.negociacoesView.update(this.negociacoes)
+        })
     }
 
     private criaNegociacao(): Negociacao{
