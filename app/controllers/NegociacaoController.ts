@@ -1,4 +1,5 @@
-import tempoDeExecucao from "../decorators/tempoDeExecucao.js"
+
+import { domInjector } from "../decorators/domInjector.js"
 import { DiasDaSemana } from "../enums/DiasDaSemana.js"
 import Negociacao from "../models/Negociacao.js"
 import Negociacoes from "../models/Negociacoes.js"
@@ -6,18 +7,18 @@ import MensagemView from "../views/MensagensView.js"
 import NegociacoesView from "../views/NegociacoesView.js"
 
 export default class NegociacaoController {
-    private inputData: HTMLInputElement
+    @domInjector('#data')
+    private inputData: HTMLInputElement    
+    @domInjector('#quantidade')
     private inputQuantidade: HTMLInputElement
+    @domInjector('#valor')
     private inputValor: HTMLInputElement
-    private negociacoes: Negociacoes
+    private negociacoes: Negociacoes = new Negociacoes()
     private negociacoesView: NegociacoesView = new NegociacoesView('#negociacoes-view', true)
     private mensagemView: MensagemView = new MensagemView('#mensagem-view', false)
 
     constructor() {
-        this.inputData = document.getElementById('data') as HTMLInputElement
-        this.inputQuantidade = document.getElementById('quantidade') as HTMLInputElement
-        this.inputValor = document.getElementById('valor') as HTMLInputElement
-        this.negociacoes = new Negociacoes()
+        this.negociacoesView.update(this.negociacoes)
     }
 
     public adiciona(): void{

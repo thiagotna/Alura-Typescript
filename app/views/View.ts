@@ -1,4 +1,4 @@
-import { inspect } from "../decorators/Inspect.js"
+import { inspect } from "../decorators/inspect.js"
 import tempoDeExecucao from "../decorators/tempoDeExecucao.js"
 
 export default abstract class View<Type> {
@@ -7,9 +7,6 @@ export default abstract class View<Type> {
 
     constructor(selector: string, escapar?: boolean){
         this.elemento = document.querySelector(selector) as HTMLElement
-        if (escapar) {
-            this.escapar = escapar   
-        }
     }
     protected abstract template(model: Type): string
     
