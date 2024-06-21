@@ -8,4 +8,11 @@ export default class Negociacoes {
     lista() {
         return this.negociacoes;
     }
+    paraTexto() {
+        return `${console.log(JSON.stringify(this.negociacoes))}`;
+    }
+    ehIgual(negociacoes) {
+        return JSON.stringify(this.negociacoes) === JSON.stringify(negociacoes.lista());
+    }
 }
+//# sourceMappingURL=Negociacoes.js.map

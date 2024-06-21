@@ -17,3 +17,4 @@ export default function tempoDeExecucao(emSegundos = false) {
         return descriptor;
     };
 }
+//# sourceMappingURL=tempoDeExecucao.js.map
